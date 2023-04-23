@@ -1,0 +1,102 @@
+
+Q 1 :
+Write a program to find the factorial of a number using recursion. Take input from user. 
+ 
+Code :
+public class Lab_Tasks_10 {
+    static int factorial(int n){
+        if(n==0){
+            return 1;
+        }
+        else if(n<0){
+            return -1;
+        }
+        else {
+            return n*factorial(n-1);
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println(factorial(5));
+    }
+}
+
+
+
+
+Q 2 :
+Write a program to use recursion as a loop to print numbers 1 to n. Take n as input from user. 
+Code :
+class MyClassOne{
+
+    static  void printNumbers(int n,int start){
+
+        if(start<= n){
+            System.out.print(start+" ");
+            start=start+1;
+            printNumbers(n,start);
+        }
+        return;
+    }
+    public static void main(String[] args) {
+        printNumbers(10,1);
+    }
+}
+
+Q 3 :
+Write a java program that generate Fibonacci series.  
+Code :
+class MyTaskOne{
+    static int n1=0,n2=1,n3=0;
+    static void printFibonacci(int count){
+        if(count>0){
+            n3 = n1 + n2;
+            n1 = n2;
+            n2 = n3;
+            System.out.print(" "+n3);
+            printFibonacci(count-1);
+        }
+    }
+    public static void main(String args[]){
+        int count=10;
+        System.out.print(n1+" "+n2);
+        printFibonacci(count-2);
+    }
+}
+
+
+Q 4 :
+Write a java program that implements binary search using recursive technique.  
+Code :
+
+class GFG {
+    int binarySearch(int arr[], int l, int r, int x)
+    {
+        if (r >= l && l <= arr.length - 1) {
+            int mid = l + (r - l) / 2;
+
+            if (arr[mid] == x)
+                return mid;
+
+            if (arr[mid] > x)
+                return binarySearch(arr, l, mid - 1, x);
+
+            return binarySearch(arr, mid + 1, r, x);
+        }
+        return -1;
+    }
+    public static void main(String args[])
+    {
+        GFG ob = new GFG();
+        int arr[] = { 2, 3, 4, 10, 40 };
+        int n = arr.length;
+        int x = 10;
+        int result = ob.binarySearch(arr, 0, n - 1, x);
+        if (result == -1)
+            System.out.println("Element not present");
+        else
+            System.out.println("Element found at index " + result);
+    }
+}
+
+
+
