@@ -1,0 +1,269 @@
+
+
+
+
+
+
+Task#01
+Question:
+To develop stack using Array (using generic class) 
+a)Implement the isEmpty() method in the Stack 
+b) Implement the getSize() method in the Stack 
+c) Implement the search() method in the Stack to check whether the element exists in the stack or not. d) Implement the push() method in the Stack and then Push 10 values. 
+e) Implement the pop() method in the Stack and print the stack using pop. 
+f) Display the all stack data using display() method..
+Code:
+package LAB.lab9;
+class ArrayStack<T>{
+    private Object[] a;
+    private int size=0;
+    public ArrayStack(int capacity){
+        a=new Object[capacity];
+    }
+    private void resize(){
+        Object[] aa=a;
+        a=new Object[size*2];
+        System.arraycopy(aa,0,a,0,size);
+    }
+    public int getSize(){
+        return size;
+    }
+    public boolean isEmpty(){
+        return size==0;
+    }
+    public int search(T target){
+        for(int i=0;i<a.length;i++)if(a[i].equals(target))return i+1;
+        return -1;
+    }
+    public void display(){
+        for(Object obj:a) System.out.println(obj);
+    }
+    public void push(T t){
+        if(a.length==size)resize();
+        a[size++]=t;
+    }
+    public Object pop(){
+        Object obj=a[--size];
+        a[size]=null;
+        return obj;
+    }
+}
+public class Task1 {
+    public static void main(String[] args) {
+        ArrayStack<Integer> stack=new ArrayStack<>(10);
+        System.out.println("Calling isEmpty method "+stack.isEmpty());
+        System.out.println("Pushing values ");
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+        stack.push(6);
+        stack.push(7);
+        stack.push(8);
+        stack.push(9);
+        stack.push(0);
+        System.out.println("Calling getSize method "+stack.getSize());
+        System.out.println("Calling display method ");
+        stack.display();
+        System.out.println("Searching 10 from stack");
+        int position=stack.search(10);
+        if(position>=0) System.out.println("Target found at "+position);
+        else System.out.println("Target not found");
+        System.out.println("Calling pop method "+stack.pop());
+        System.out.println("Size of stack after calling pop method "+stack.getSize());
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Question 2
+To develop stack using Linked List implemented in the previous lab (using generic class) 
+a)Implement the isEmpty() method in the Stack 
+ b) Implement the getSize() method in the Stack 
+c) Implement the search() method in the Stack to check whether the element exists in the stack or not. d) Implement the push() method in the Stack and then Push 10 values.
+ e) Implement the pop() method in the Stack and print the stack using pop.
+ f) Display the all stack data using display() method.
+
+Code:
+package LAB.lab9;
+class LinkedStack<T>{
+    private class Node<T>{
+        T data;
+        Node<T> next;
+        Node(T data){
+            this.data=data;
+        }
+        Node(){
+
+        }
+    }
+    Node<T> head=null;
+    private int size=0;
+    public boolean isEmpty(){
+        return head==null;
+    }
+    public int getSize(){
+        return size;
+    }
+    public int search(T target){
+        int count=1;
+        for(Node<T> n=head;n!=null;n=n.next){
+            if(n.data.equals(target))return count;
+            count++;
+        }
+        return -1;
+    }
+    public void push(T t){
+        Node<T> node=new Node<>(t);
+        node.next=head;
+        head=node;
+        size++;
+    }
+    public T pop(){
+        T t=head.data;
+        head=head.next;
+        --size;
+        return t;
+    }
+    public void display(){
+        for(Node<T> n=head;n!=null;n=n.next) System.out.println(n.data);
+    }
+}
+public class Task2 {
+    public static void main(String[] args) {
+        LinkedStack<String> stack=new LinkedStack<>();
+        System.out.println("Calling isEmpty method "+stack.isEmpty());
+        System.out.println("Calling getSize method "+stack.getSize());
+        System.out.println("Pushing 10 elements in Linked Stack");
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
+        stack.push("D");
+        stack.push("E");
+        stack.push("F");
+        stack.push("G");
+        stack.push("H");
+        stack.push("I");
+        stack.push("J");
+        System.out.println("Calling getSize method "+stack.getSize());
+        System.out.println("Searching G ");
+        int position=stack.search("G");
+        if(position>=0) System.out.println("Target found at position "+position);
+        else System.out.println("Target not found");
+        System.out.println("Calling display method");
+        stack.display();
+        System.out.println("Calling pop method "+stack.pop());
+        System.out.println("Calling getSize method "+stack.getSize());
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+Question 3:
+ Implement the forward and backward feature in web browsers using stack. (Use either array or linked list it is your choice)
+
+Code:
+package LAB.lab9;
+
+import java.util.EmptyStackException;
+import java.util.Scanner;
+
+class WebBrowser<T>{
+    private Object[] a;
+    private int size=0;
+     private int index=-1;//for printing so that actual size should not be effected
+
+    WebBrowser(){
+        a=new Object[1];
+    }
+    WebBrowser(int capacity){
+        a=new Object[capacity];
+    }
+    public boolean isEmpty(){
+        return size==0;
+    }
+    public int getSize(){
+        return size;
+    }
+    private void resize(){
+        Object[] aa=a;
+        a=new Object[size*2];
+        System.arraycopy(aa,0,a,0,size);
+    }
+    public void push(T data){
+        if(a.length==size)resize();
+        a[size++]=data;
+        index++;
+    }
+    public Object pop(){
+        if(isEmpty()) throw new EmptyStackException();
+        Object t=a[--size];
+        a[size]=null;
+        --index;
+        return t;
+
+    }
+    int temp=0;
+    public void next(){
+        if(temp==10)index-=2;//for checking whether it is running before previous or after running previous
+        temp=-1;//to ensure previous that next has been called before you
+        if(index<0)index=size-1;
+        System.out.println(a[index--]);
+     }
+    public void previous(){
+        if(temp==-1)index+=2;//to check that whether next has been called before or not
+        if(temp!=10 && temp!=-1) index=0;//to ensure that previous has been called second time so that we should not change the value of index
+        temp=10;
+        if(index== size-1){
+            System.out.println(a[index]);
+            index=0;
+        }
+        else System.out.println(a[index++]);
+    }
+}
+public class Task3 {
+    public static void main(String[] args) {
+        WebBrowser<String> web=new WebBrowser<>(10);
+        web.push("a");
+        web.push("b");
+        web.push("c");
+        web.push("d");
+        web.push("e");
+        web.push("f");
+        web.push("g");
+        int a;
+        do {
+            System.out.println("0.Exit\n1.next\n2.previous");
+            Scanner scan=new Scanner(System.in);
+            a=scan.nextInt();
+            switch (a){
+                case 1->web.next();
+                case 2->web.previous();
+            }
+        }while (a!=0);
+
+    }
+}
+
+
