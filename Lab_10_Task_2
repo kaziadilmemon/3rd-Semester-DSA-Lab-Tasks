@@ -1,0 +1,18 @@
+Q 2 :
+Write a program to use recursion as a loop to print numbers 1 to n. Take n as input from user. 
+Code :
+class MyClassOne{
+
+    static  void printNumbers(int n,int start){
+
+        if(start<= n){
+            System.out.print(start+" ");
+            start=start+1;
+            printNumbers(n,start);
+        }
+        return;
+    }
+    public static void main(String[] args) {
+        printNumbers(10,1);
+    }
+}
