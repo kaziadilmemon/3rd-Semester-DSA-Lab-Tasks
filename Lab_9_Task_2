@@ -1,0 +1,86 @@
+Question 2
+To develop stack using Linked List implemented in the previous lab (using generic class) 
+a)Implement the isEmpty() method in the Stack 
+ b) Implement the getSize() method in the Stack 
+c) Implement the search() method in the Stack to check whether the element exists in the stack or not. d) Implement the push() method in the Stack and then Push 10 values.
+ e) Implement the pop() method in the Stack and print the stack using pop.
+ f) Display the all stack data using display() method.
+
+Code:
+package LAB.lab9;
+class LinkedStack<T>{
+    private class Node<T>{
+        T data;
+        Node<T> next;
+        Node(T data){
+            this.data=data;
+        }
+        Node(){
+
+        }
+    }
+    Node<T> head=null;
+    private int size=0;
+    public boolean isEmpty(){
+        return head==null;
+    }
+    public int getSize(){
+        return size;
+    }
+    public int search(T target){
+        int count=1;
+        for(Node<T> n=head;n!=null;n=n.next){
+            if(n.data.equals(target))return count;
+            count++;
+        }
+        return -1;
+    }
+    public void push(T t){
+        Node<T> node=new Node<>(t);
+        node.next=head;
+        head=node;
+        size++;
+    }
+    public T pop(){
+        T t=head.data;
+        head=head.next;
+        --size;
+        return t;
+    }
+    public void display(){
+        for(Node<T> n=head;n!=null;n=n.next) System.out.println(n.data);
+    }
+}
+public class Task2 {
+    public static void main(String[] args) {
+        LinkedStack<String> stack=new LinkedStack<>();
+        System.out.println("Calling isEmpty method "+stack.isEmpty());
+        System.out.println("Calling getSize method "+stack.getSize());
+        System.out.println("Pushing 10 elements in Linked Stack");
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
+        stack.push("D");
+        stack.push("E");
+        stack.push("F");
+        stack.push("G");
+        stack.push("H");
+        stack.push("I");
+        stack.push("J");
+        System.out.println("Calling getSize method "+stack.getSize());
+        System.out.println("Searching G ");
+        int position=stack.search("G");
+        if(position>=0) System.out.println("Target found at position "+position);
+        else System.out.println("Target not found");
+        System.out.println("Calling display method");
+        stack.display();
+        System.out.println("Calling pop method "+stack.pop());
+        System.out.println("Calling getSize method "+stack.getSize());
+
+    }
+}
+
+
+
+
+
