@@ -1,0 +1,85 @@
+Question 3:
+ Implement the forward and backward feature in web browsers using stack. (Use either array or linked list it is your choice)
+
+Code:
+package LAB.lab9;
+
+import java.util.EmptyStackException;
+import java.util.Scanner;
+
+class WebBrowser<T>{
+    private Object[] a;
+    private int size=0;
+     private int index=-1;//for printing so that actual size should not be effected
+
+    WebBrowser(){
+        a=new Object[1];
+    }
+    WebBrowser(int capacity){
+        a=new Object[capacity];
+    }
+    public boolean isEmpty(){
+        return size==0;
+    }
+    public int getSize(){
+        return size;
+    }
+    private void resize(){
+        Object[] aa=a;
+        a=new Object[size*2];
+        System.arraycopy(aa,0,a,0,size);
+    }
+    public void push(T data){
+        if(a.length==size)resize();
+        a[size++]=data;
+        index++;
+    }
+    public Object pop(){
+        if(isEmpty()) throw new EmptyStackException();
+        Object t=a[--size];
+        a[size]=null;
+        --index;
+        return t;
+
+    }
+    int temp=0;
+    public void next(){
+        if(temp==10)index-=2;//for checking whether it is running before previous or after running previous
+        temp=-1;//to ensure previous that next has been called before you
+        if(index<0)index=size-1;
+        System.out.println(a[index--]);
+     }
+    public void previous(){
+        if(temp==-1)index+=2;//to check that whether next has been called before or not
+        if(temp!=10 && temp!=-1) index=0;//to ensure that previous has been called second time so that we should not change the value of index
+        temp=10;
+        if(index== size-1){
+            System.out.println(a[index]);
+            index=0;
+        }
+        else System.out.println(a[index++]);
+    }
+}
+public class Task3 {
+    public static void main(String[] args) {
+        WebBrowser<String> web=new WebBrowser<>(10);
+        web.push("a");
+        web.push("b");
+        web.push("c");
+        web.push("d");
+        web.push("e");
+        web.push("f");
+        web.push("g");
+        int a;
+        do {
+            System.out.println("0.Exit\n1.next\n2.previous");
+            Scanner scan=new Scanner(System.in);
+            a=scan.nextInt();
+            switch (a){
+                case 1->web.next();
+                case 2->web.previous();
+            }
+        }while (a!=0);
+
+    }
+}
