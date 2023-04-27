@@ -1,5 +1,5 @@
-Q 1 :
-Write a program to find the factorial of a number using recursion. Take input from user. 
+//Q 1 :
+//Write a program to find the factorial of a number using recursion. Take input from user. 
 
 Code :
 public class Lab_Tasks_10 {
